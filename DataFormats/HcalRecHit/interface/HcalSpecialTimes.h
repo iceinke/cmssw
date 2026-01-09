@@ -1,6 +1,6 @@
-#include "DataFormats/HcalDetId/interface/HcalSubdetector.h"
 #ifndef DataFormats_HcalRecHit_HcalSpecialTimes_h_
 #define DataFormats_HcalRecHit_HcalSpecialTimes_h_
+#include "DataFormats/HcalDetId/interface/HcalSubdetector.h"
 
 // This is an excerpt from QIE10/QIE11 TDC specifications (by T. Zimmerman):
 //

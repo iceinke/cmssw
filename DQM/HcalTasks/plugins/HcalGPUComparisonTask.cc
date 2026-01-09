@@ -40,12 +40,11 @@ private:
   edm::EDGetTokenT<HBHERecHitCollection> tokHBHE_target_;
   edm::ESGetToken<HcalDbService, HcalDbRecord> hcalDbServiceToken_;
 
-  hcaldqm::Container2D timeGPUvsCPU_subdet_;
-
   //    GPU reco test verification
   hcaldqm::Container2D energyGPUvsCPU_subdet_;
   hcaldqm::Container1D energyDiffGPUCPU_subdet_;
   hcaldqm::ContainerProf2D energyDiffGPUCPU_depth_;
+  hcaldqm::Container2D timeGPUvsCPU_subdet_;
 };
 
 HcalGPUComparisonTask::HcalGPUComparisonTask(edm::ParameterSet const& ps)
@@ -64,14 +63,6 @@ HcalGPUComparisonTask::HcalGPUComparisonTask(edm::ParameterSet const& ps)
   //	GET WHAT YOU NEED
   edm::ESHandle<HcalDbService> dbs = es.getHandle(hcalDbServiceToken_);
   _emap = dbs->getHcalMapping();
-
-  timeGPUvsCPU_subdet_.initialize(_name,
-                                  "TimeGPUvsCPU",
-                                  hcaldqm::hashfunctions::fSubdet,
-                                  new hcaldqm::quantity::ValueQuantity(hcaldqm::quantity::fCPUtime, true),
-                                  new hcaldqm::quantity::ValueQuantity(hcaldqm::quantity::fGPUtime, true),
-                                  new hcaldqm::quantity::ValueQuantity(hcaldqm::quantity::fN),
-                                  0);
 
   //	Book monitoring elements
   energyGPUvsCPU_subdet_.initialize(_name,
@@ -94,11 +85,18 @@ HcalGPUComparisonTask::HcalGPUComparisonTask(edm::ParameterSet const& ps)
                                      new hcaldqm::quantity::DetectorQuantity(hcaldqm::quantity::fiphi),
                                      new hcaldqm::quantity::ValueQuantity(hcaldqm::quantity::fDiffRatio),
                                      0);
+  timeGPUvsCPU_subdet_.initialize(_name,
+                                  "TimeGPUvsCPU",
+                                  hcaldqm::hashfunctions::fSubdet,
+                                  new hcaldqm::quantity::ValueQuantity(hcaldqm::quantity::fCPUtime, true),
+                                  new hcaldqm::quantity::ValueQuantity(hcaldqm::quantity::fGPUtime, true),
+                                  new hcaldqm::quantity::ValueQuantity(hcaldqm::quantity::fN),
+                                  0);
 
-  timeGPUvsCPU_subdet_.book(ib, _emap, _subsystem);
   energyGPUvsCPU_subdet_.book(ib, _emap, _subsystem);
   energyDiffGPUCPU_subdet_.book(ib, _emap, _subsystem);
   energyDiffGPUCPU_depth_.book(ib, _emap, _subsystem);
+  timeGPUvsCPU_subdet_.book(ib, _emap, _subsystem);
 }
 
 /* virtual */ void HcalGPUComparisonTask::_resetMonitors(hcaldqm::UpdateFreq uf) { DQTask::_resetMonitors(uf); }

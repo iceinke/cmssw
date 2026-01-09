@@ -657,7 +657,7 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
                   } else {
                     if (gch < f01HEDigis.size())
                       tdcTime =
-                          HcalSpecialTimes::getTDCTime(tdc_for_sample<Flavor1>(&(f01HEDigis.data()[gch][0]), sample),
+                          HcalSpecialTimes::getTDCTime(tdc_for_sample<Flavor1>(f01HEDigis[gch].data().data(), sample),
                                                        subdetectorType,
                                                        subdetectorDepth);
                     else if (gch >= nchannelsf015)
@@ -667,9 +667,9 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
                           subdetectorDepth);
                   }
                   // store method0 quantities to global mem
-                  outputGPU.detId()[gch] = id;
-                  outputGPU.energyM0()[gch] = method0_energy;
-                  outputGPU.timeM0()[gch] = tdcTime;
+                  outputGPU[gch].detId() = id;
+                  outputGPU[gch].energyM0() = method0_energy;
+                  outputGPU[gch].timeM0() = tdcTime;
 
                   // check as in cpu version if mahi is not needed
                   // FIXME: KNOWN ISSUE: observed a problem when rawCharge and pedestal
