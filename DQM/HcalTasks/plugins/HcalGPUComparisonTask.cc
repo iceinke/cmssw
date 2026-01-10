@@ -128,13 +128,11 @@ HcalGPUComparisonTask::HcalGPUComparisonTask(edm::ParameterSet const& ps)
       mRecHitTime.insert(std::make_pair(did, time));
     else
       edm::LogError("HcalGPUComparisonTask") << "Duplicate Rechit from the same HcalDetId";
-    ;
 
     if (mRecHitEnergy.find(did) == mRecHitEnergy.end())
       mRecHitEnergy.insert(std::make_pair(did, energy));
     else
       edm::LogError("HcalGPUComparisonTask") << "Duplicate Rechit from the same HcalDetId";
-    ;
   }
 
   for (HBHERecHitCollection::const_iterator it = chbhe_target->begin(); it != chbhe_target->end(); ++it) {
