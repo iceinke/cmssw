@@ -662,7 +662,7 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
                                                        subdetectorDepth);
                     else if (gch >= nchannelsf015)
                       tdcTime = HcalSpecialTimes::getTDCTime(
-                          tdc_for_sample<Flavor3>(&(f3HBDigis.data()[gch - nchannelsf015][0]), sample),
+                          tdc_for_sample<Flavor3>(f3HBDigis[gch - nchannelsf015].data().data(), sample),
                           subdetectorType,
                           subdetectorDepth);
                   }
