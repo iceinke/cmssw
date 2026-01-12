@@ -535,6 +535,7 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
                 auto const dfc = compute_diff_charge_gain(
                     qieType, adc, capid, qieOffsets, qieSlopes, gch < f01HEDigis.size() || gch >= nchannelsf015);
 
+                // compute method 0 quantities
                 // TODO: need to apply containment
                 // TODO: need to apply time slew
                 // TODO: for < run 3, apply HBM legacy energy correction
